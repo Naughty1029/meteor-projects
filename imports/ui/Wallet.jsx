@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { Meteor } from 'meteor/meteor';
 import { Modal } from "./components/Modal"
-import { ContactCollection } from '../api/ContactCollection';
-import { WalletsCollection } from "../api/WalletsCollection";
+import { ContactCollection } from '../api/collections/ContactCollection';
+import { WalletsCollection } from "../api/collections/WalletsCollection";
 import { useSubscribe,useFind } from "meteor/react-meteor-data";
 import { SelectContact } from "./components/SelectContact";
 import { Loading } from './components/Loading';
@@ -20,7 +20,6 @@ export const Wallet = ()=> {
     const [errorMessage,setErrorMessage] = useState("");
 
     const addTransaction = ()=>{
-        console.log("New Transaction",amount,destinationWallet);
         Meteor.call("transactions.insert",{
             isTransferring, 
             sourceWalletId:wallet._id, 
@@ -28,7 +27,13 @@ export const Wallet = ()=> {
             amount:Number(amount)
         },(errorResponse) => {
             if(errorResponse) {
-                setErrorMessage(errorResponse.error)
+                if(errorResponse.error){
+                    setErrorMessage(errorResponse.error)
+                }else{
+                    errorResponse.details?.forEach(error => {
+                        setErrorMessage(error.message)
+                    });
+                }
             }else {
                 setOpen(false);
                 setDestinationWallet({})

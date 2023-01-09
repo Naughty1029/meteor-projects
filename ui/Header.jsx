@@ -28,7 +28,7 @@ export const Header = () => {
                             {isLoadingLoggedUser || !loggedUser && (
                                 <button 
                                 className='cursor-pointer text-white'
-                                onClick={()=> navigate(RoutePaths.SIGN_UP)}>Sign Up</button>
+                                onClick={()=> navigate(RoutePaths.ACCESS)}>Sign Up</button>
                             )}
                             {isLoadingLoggedUser || loggedUser && (
                                 <button 

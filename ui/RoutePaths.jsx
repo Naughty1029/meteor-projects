@@ -1,4 +1,6 @@
 export const RoutePaths = {
     HOME:"/",
-    SIGN_UP:"/sign-up"
+    ACCESS:"/access",
+    FORGOT_PASSWORD:"/forgot-password",
+    RESET_PASSWORD:"/reset-password"
 }
